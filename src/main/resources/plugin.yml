@@ -1,0 +1,4 @@
+name: DontNeedAI
+version: '0.0.1'
+main: org.domi.DontNeedAI
+api-version: '1.21'
