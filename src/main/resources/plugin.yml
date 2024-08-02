@@ -1,4 +1,15 @@
-name: DontNeedAI
-version: '0.0.1'
-main: org.domi.DontNeedAI
+name: DomiNPCManagerAPI
+version: '${version}'
+main: org.domi.DomiNPCManagerAPI
 api-version: '1.21'
+depend: [Citizens]
+commands:
+  dominpc:
+    description: Basic commands for all NPC-related things
+    permission: domi.command
+permissions:
+  domi.command : {default: op}
+  domi.command.setNpcType : {default: op}
+  domi.command.removeNpcType : {default: op}
+  domi.command.removeAllNpcType : {default: op}
+  domi.command.getNpcType : {default: op}

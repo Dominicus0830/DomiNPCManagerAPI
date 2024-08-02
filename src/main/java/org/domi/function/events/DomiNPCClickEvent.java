@@ -1,11 +1,11 @@
-package org.domi.events;
+package org.domi.function.events;
 
 import net.citizensnpcs.api.event.NPCEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.domi.events.enums.DomiNPCClickType;
+import org.domi.function.events.enums.DomiNPCClickType;
 
 public class DomiNPCClickEvent extends NPCEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();

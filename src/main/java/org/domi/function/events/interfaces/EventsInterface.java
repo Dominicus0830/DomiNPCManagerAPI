@@ -1,8 +1,7 @@
-package org.domi.events.interfaces;
+package org.domi.function.events.interfaces;
 
 import org.bukkit.event.EventHandler;
-import org.domi.events.DomiNPCClickEvent;
-import org.domi.events.DomiNPCRightClickEvent;
+import org.domi.function.events.DomiNPCRightClickEvent;
 
 public interface EventsInterface {
     /*@EventHandler
