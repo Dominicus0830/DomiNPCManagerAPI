@@ -9,7 +9,7 @@ public final class DontNeedAI extends JavaPlugin {
         return plugin;
     }
 
-    @Override
+    /*@Override
     public void onEnable() {
         plugin = this;
         getLogger().info("DontNeedAI enabled! It sure?!");
@@ -19,5 +19,5 @@ public final class DontNeedAI extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
+    }*/
 }

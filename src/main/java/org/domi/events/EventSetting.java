@@ -1,4 +1,4 @@
-package org.domi.events;
+/*package org.domi.events;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
@@ -56,4 +56,4 @@ public class EventSetting implements Listener {
             }
         }
     }
-}
+}*/

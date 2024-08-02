@@ -8,15 +8,19 @@ import org.bukkit.event.HandlerList;
 import org.domi.events.enums.DomiNPCClickType;
 
 public class DomiNPCClickEvent extends NPCEvent implements Cancellable {
-    private boolean cancelled = false;
+    private static final HandlerList handlers = new HandlerList();
     private final Player clicker;
     private final DomiNPCClickType npcType;
-    private static final HandlerList handlers = new HandlerList();
+    private boolean cancelled = false;
 
     protected DomiNPCClickEvent(NPC npc, Player clicker, DomiNPCClickType npcType) {
         super(npc);
         this.clicker = clicker;
         this.npcType = npcType;
+    }
+
+    public static HandlerList getHandlersList() {
+        return handlers;
     }
 
     public Player getClicker() {
@@ -36,10 +40,6 @@ public class DomiNPCClickEvent extends NPCEvent implements Cancellable {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlersList() {
         return handlers;
     }
 }

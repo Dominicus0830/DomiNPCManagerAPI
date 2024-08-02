@@ -6,18 +6,18 @@ import org.bukkit.event.HandlerList;
 import org.domi.events.enums.DomiNPCClickType;
 
 public class DomiNPCRightClickEvent extends DomiNPCClickEvent {
-    private boolean cancel;
     private static final HandlerList handlers = new HandlerList();
+    private boolean cancel;
 
     protected DomiNPCRightClickEvent(NPC npc, Player clicker, DomiNPCClickType npcType) {
         super(npc, clicker, npcType);
     }
 
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
+    public HandlerList getHandlers() {
         return handlers;
     }
 
