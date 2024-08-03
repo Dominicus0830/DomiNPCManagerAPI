@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.domi'
-version = '0.1.8'
+version = '0.1.10'
 
 publishing {
     publications {
@@ -188,10 +188,11 @@ task gitCommitAndPush {
         matcher.find()
         def newVersion = "${matcher.group(1)}.${matcher.group(2)}.${matcher.group(3)}"
 
-        'git add build.gradle'.execute().text
+        'git add -all'
          def commitMessage = "Update version to "+newVersion
         ['git', 'commit', '-m', commitMessage].execute().waitFor()
-        'git push'.execute().text
+        'git pull'
+        'git push'
 
         println "Git 커밋 및 푸시가 완료되었습니다: ${commitMessage}"
     }
