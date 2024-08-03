@@ -1,11 +1,12 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'java-library'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 group = 'org.domi'
-version = '0.1.10'
+version = '0.1.12'
 
 publishing {
     publications {
@@ -44,8 +45,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
-    compileOnly('net.citizensnpcs:citizens-main:2.0.33-SNAPSHOT') {
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    api('net.citizensnpcs:citizens-main:2.0.33-SNAPSHOT') {
         exclude group: '*', module: '*'
     }
 }
@@ -109,7 +110,6 @@ task asUpDateVersion {
 
 asUpDateVersion.finalizedBy('build')
 build.finalizedBy('publish')
-publish.finalizedBy 'gitCommitAndPush'
 
 task amUpDateVersion {
     doLast {
@@ -143,7 +143,6 @@ task amUpDateVersion {
 
 amUpDateVersion.finalizedBy('build')
 build.finalizedBy('publish')
-publish.finalizedBy 'gitCommitAndPush'
 
 task atUpDateVersion {
     doLast {
@@ -171,13 +170,11 @@ task atUpDateVersion {
         buildFile.text = newBuildFileContent
 
         println "버전이 업데이트 되었습니다: ${matcher.group(0)} -> version = '${newVersion}'"
-
     }
 }
 
 atUpDateVersion.finalizedBy('build')
 build.finalizedBy('publish')
-publish.finalizedBy 'gitCommitAndPush'
 
 task gitCommitAndPush {
     doLast {
