@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.domi'
-version = '0.1.1'
+version = '0.1.2'
 
 publishing {
     publications {
@@ -74,5 +74,123 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
+    }
+}
+
+task asUpDateVersion {
+    doLast {
+        def buildFile = file('build.gradle')
+
+        if (!buildFile.exists()) {
+            throw new GradleException("build.gradle 파일을 찾을 수 없습니다.")
+        }
+
+        def buildFileContent = buildFile.text
+        def versionPattern = ~/(?m)^version\s*=\s*['"](\d+)\.(\d+)\.(\d+)['"]/
+
+        def matcher = versionPattern.matcher(buildFileContent)
+        if (!matcher.find()) {
+            throw new GradleException("build.gradle 파일에서 버전을 찾을 수 없습니다.")
+        }
+
+        def major = matcher.group(1)
+        def minor = matcher.group(2)
+        def patch = matcher.group(3).toInteger() + 1
+
+        def newVersion = "${major}.${minor}.${patch}"
+        def newBuildFileContent = buildFileContent.replaceFirst(versionPattern, "version = '${newVersion}'")
+
+        buildFile.text = newBuildFileContent
+
+        println "버전이 업데이트 되었습니다: ${matcher.group(0)} -> version = '${newVersion}'"
+
+    }
+}
+
+asUpDateVersion.finalizedBy('build')
+build.finalizedBy('publish')
+publish.finalizedBy 'gitCommitAndPush'
+
+task amUpDateVersion {
+    doLast {
+        def buildFile = file('build.gradle')
+
+        if (!buildFile.exists()) {
+            throw new GradleException("build.gradle 파일을 찾을 수 없습니다.")
+        }
+
+        def buildFileContent = buildFile.text
+        def versionPattern = ~/(?m)^version\s*=\s*['"](\d+)\.(\d+)\.(\d+)['"]/
+
+        def matcher = versionPattern.matcher(buildFileContent)
+        if (!matcher.find()) {
+            throw new GradleException("build.gradle 파일에서 버전을 찾을 수 없습니다.")
+        }
+
+        def major = matcher.group(1)
+        def minor = matcher.group(2).toInteger() +1
+        def patch = 0
+
+        def newVersion = "${major}.${minor}.${patch}"
+        def newBuildFileContent = buildFileContent.replaceFirst(versionPattern, "version = '${newVersion}'")
+
+        buildFile.text = newBuildFileContent
+
+        println "버전이 업데이트 되었습니다: ${matcher.group(0)} -> version = '${newVersion}'"
+
+    }
+}
+
+amUpDateVersion.finalizedBy('build')
+build.finalizedBy('publish')
+
+task atUpDateVersion {
+    doLast {
+        def buildFile = file('build.gradle')
+
+        if (!buildFile.exists()) {
+            throw new GradleException("build.gradle 파일을 찾을 수 없습니다.")
+        }
+
+        def buildFileContent = buildFile.text
+        def versionPattern = ~/(?m)^version\s*=\s*['"](\d+)\.(\d+)\.(\d+)['"]/
+
+        def matcher = versionPattern.matcher(buildFileContent)
+        if (!matcher.find()) {
+            throw new GradleException("build.gradle 파일에서 버전을 찾을 수 없습니다.")
+        }
+
+        def major = matcher.group(1).toInteger() + 1
+        def minor = 0
+        def patch = 0
+
+        def newVersion = "${major}.${minor}.${patch}"
+        def newBuildFileContent = buildFileContent.replaceFirst(versionPattern, "version = '${newVersion}'")
+
+        buildFile.text = newBuildFileContent
+
+        println "버전이 업데이트 되었습니다: ${matcher.group(0)} -> version = '${newVersion}'"
+
+    }
+}
+
+atUpDateVersion.finalizedBy('build')
+build.finalizedBy('publish')
+
+task gitCommitAndPush {
+    doLast {
+        def buildFile = file('build.gradle')
+        def buildFileContent = buildFile.text
+        def versionPattern = ~/(?m)^version\s*=\s*['"](\d+)\.(\d+)\.(\d+)['"]/
+        def matcher = versionPattern.matcher(buildFileContent)
+        matcher.find()
+        def newVersion = "${matcher.group(1)}.${matcher.group(2)}.${matcher.group(3)}"
+
+        'git add build.gradle'.execute().text
+        def commitMessage = "Update version to ${newVersion}"
+        'git commit -m "${commitMessage}"'.execute().text
+        'git push'.execute().text
+
+        println "Git 커밋 및 푸시가 완료되었습니다: ${commitMessage}"
     }
 }
