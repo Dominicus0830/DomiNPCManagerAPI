@@ -143,6 +143,7 @@ task amUpDateVersion {
 
 amUpDateVersion.finalizedBy('build')
 build.finalizedBy('publish')
+publish.finalizedBy 'gitCommitAndPush'
 
 task atUpDateVersion {
     doLast {
@@ -176,6 +177,7 @@ task atUpDateVersion {
 
 atUpDateVersion.finalizedBy('build')
 build.finalizedBy('publish')
+publish.finalizedBy 'gitCommitAndPush'
 
 task gitCommitAndPush {
     doLast {
@@ -187,7 +189,7 @@ task gitCommitAndPush {
         def newVersion = "${matcher.group(1)}.${matcher.group(2)}.${matcher.group(3)}"
 
         'git add build.gradle'.execute().text
-        def commitMessage = "Update version to ${newVersion}"
+         def commitMessage = "Update version to "+newVersion
         'git commit -m "${commitMessage}"'.execute().text
         'git push'.execute().text
 
