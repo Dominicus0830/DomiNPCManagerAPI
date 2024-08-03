@@ -17,11 +17,6 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
     private final DomiNPCManagerAPI plugin = DomiNPCManagerAPI.getPlugin();
     private PDCManager pdcManager = new PDCManager();
 
-    public DomiNPCTypeCommand() {
-
-        plugin.getCommand("dominpc").setExecutor(this);
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args) {
         if (sender instanceof ConsoleCommandSender) {

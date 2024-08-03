@@ -51,18 +51,14 @@ public class PDCManager {
         return false;
     }
 
-    public DomiNPCClickType getNPCPDCValue(JavaPlugin plugin, NPC npc) {
+    public DomiNPCClickType getNPCPDCValue(JavaPlugin plugin, NPC npc) throws IllegalArgumentException {
         Entity entity = npc.getEntity();
         if (entity != null) {
             NamespacedKey key = new NamespacedKey(plugin, "DomiNPCType");
             PersistentDataContainer dataContainer = entity.getPersistentDataContainer();
             if (dataContainer.has(key, PersistentDataType.STRING)) {
                 String value = dataContainer.get(key, PersistentDataType.STRING);
-                try {
-                    return DomiNPCClickType.valueOf(value);
-                } catch (IllegalArgumentException e) {
-                    return DomiNPCClickType.NONE;
-                }
+                return DomiNPCClickType.valueOf(value);
             }
         }
         return DomiNPCClickType.NONE;

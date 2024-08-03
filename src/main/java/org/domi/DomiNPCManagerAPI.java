@@ -1,6 +1,7 @@
 package org.domi;
 
 import net.citizensnpcs.api.command.CommandManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.domi.commands.DomiNPCTypeCommand;
 import org.domi.events.EventListener;
@@ -19,8 +20,9 @@ public class DomiNPCManagerAPI extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         // Plugin startup logic
-        new DomiNPCTypeCommand();
-        new EventListener();
+        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
+        Bukkit.getPluginCommand("dominpc").setExecutor(new DomiNPCTypeCommand());
+        Bukkit.getPluginCommand("dominpc").setTabCompleter(new DomiNPCTypeCommand());
     }
 
     @Override
