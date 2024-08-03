@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.domi'
-version = '0.1.2'
+version = '0.1.7'
 
 publishing {
     publications {
@@ -190,7 +190,7 @@ task gitCommitAndPush {
 
         'git add build.gradle'.execute().text
          def commitMessage = "Update version to "+newVersion
-        'git commit -m "${commitMessage}"'.execute().text
+        ['git', 'commit', '-m', commitMessage].execute().waitFor()
         'git push'.execute().text
 
         println "Git 커밋 및 푸시가 완료되었습니다: ${commitMessage}"
