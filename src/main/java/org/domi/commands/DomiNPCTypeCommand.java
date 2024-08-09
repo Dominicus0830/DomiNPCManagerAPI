@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
     private final DomiNPCManagerAPI plugin = DomiNPCManagerAPI.getPlugin();
-    private PDCManager pdcManager = new PDCManager();
+    private final PDCManager pdcManager = new PDCManager();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args) {
@@ -71,14 +71,14 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
     private void setType(CommandSender sender, NPC npc, String typeStr) {
         try {
             DomiNPCClickType type = DomiNPCClickType.valueOf(typeStr.toUpperCase());
-            DomiNPCClickType currentType = pdcManager.getNPCPDCValue(plugin, npc);
+            DomiNPCClickType currentType = pdcManager.getNPCPDCValue(npc);
 
             if (currentType != DomiNPCClickType.NONE) {
                 sender.sendMessage("NPC 유형이 이미 설정되어 있습니다.");
                 return;
             }
 
-            pdcManager.setNPCPDC(plugin, npc, type);
+            pdcManager.setNPCPDC(npc, type);
             sender.sendMessage("NPC 유형이 " + type + "(으)로 설정되었습니다.");
         } catch (IllegalArgumentException e) {
             sender.sendMessage("유효하지 않은 유형입니다: " + typeStr);
@@ -89,8 +89,8 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
         try {
             DomiNPCClickType type = DomiNPCClickType.valueOf(typeStr.toUpperCase());
 
-            if (pdcManager.hasNPCPDCValue(plugin, npc, type)) {
-                pdcManager.removeNPCPDC(plugin, npc, type);
+            if (pdcManager.hasNPCPDCValue(npc, type)) {
+                pdcManager.removeNPCPDC(npc, type);
                 sender.sendMessage("NPC 유형 " + type + "이(가) 제거되었습니다.");
             } else {
                 sender.sendMessage("NPC에 설정된 유형이 아니거나 이미 제거되었습니다: " + type);
@@ -101,10 +101,10 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
     }
 
     private void removeAllType(CommandSender sender, NPC npc) {
-        DomiNPCClickType currentType = pdcManager.getNPCPDCValue(plugin, npc);
+        DomiNPCClickType currentType = pdcManager.getNPCPDCValue(npc);
 
         if (currentType != null && currentType != DomiNPCClickType.NONE) {
-            pdcManager.removeAllNPCPDC(plugin, npc);
+            pdcManager.removeAllNPCPDC(npc);
             sender.sendMessage("모든 NPC 유형이 제거되었습니다.");
         } else {
             sender.sendMessage("제거할 유형이 없습니다. NPC에 유형이 설정되어 있지 않습니다.");
@@ -112,7 +112,7 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
     }
 
     private void getNPCType(CommandSender sender, NPC npc) {
-        DomiNPCClickType type = pdcManager.getNPCPDCValue(plugin, npc);
+        DomiNPCClickType type = pdcManager.getNPCPDCValue(npc);
         sender.sendMessage("NPC 유형은 " + type + "입니다.");
     }
 

@@ -20,9 +20,6 @@ public class EventListener implements Listener {
     private final DomiNPCManagerAPI plugin = DomiNPCManagerAPI.getPlugin();
     private final PDCManager pdcManager = new PDCManager();
 
-    public EventListener() {
-        Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
 
     @EventHandler
     public void onClickNPC(PlayerInteractEntityEvent event) {
@@ -37,7 +34,7 @@ public class EventListener implements Listener {
             return;
         }
 
-        DomiNPCClickType NPCType = pdcManager.getNPCPDCValue(plugin, npc);
+        DomiNPCClickType NPCType = pdcManager.getNPCPDCValue(npc);
 
         Player player = event.getPlayer();
         DomiNPCRightClickEvent rightClickEvent = new DomiNPCRightClickEvent(npc, player, NPCType);
