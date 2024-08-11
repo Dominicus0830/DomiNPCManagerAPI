@@ -10,7 +10,7 @@ import org.domi.function.events.enums.DomiNPCClickType;
 
 public class PDCManager {
     private static final DomiNPCManagerAPI plugin = DomiNPCManagerAPI.getPlugin();
-    private final NamespacedKey key = new NamespacedKey("dominpc", "dominpctype");
+    private final NamespacedKey key = new NamespacedKey(plugin, "dominpctype");
     public void setNPCPDC(NPC npc, DomiNPCClickType npcType) {
         Entity entity = npc.getEntity();
         if (entity != null) {

@@ -44,6 +44,7 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
             case "settype":
                 if (args.length < 2) {
                     sender.sendMessage("사용법: /dominpc settype [type]");
+                    sender.sendMessage(npc.getFullName() + " : " + npc.getId());
                     return true;
                 }
                 setType(sender, npc, args[1]);
@@ -51,15 +52,19 @@ public class DomiNPCTypeCommand implements CommandExecutor, TabCompleter {
             case "removetype":
                 if (args.length < 2) {
                     sender.sendMessage("사용법: /dominpc removetype [type]");
+                    sender.sendMessage(npc.getFullName() + " : " + npc.getId());
                     return true;
                 }
                 removeType(sender, npc, args[1]);
+                sender.sendMessage(npc.getFullName() + " : " + npc.getId());
                 break;
             case "removealltype":
                 removeAllType(sender, npc);
+                sender.sendMessage(npc.getFullName() + " : " + npc.getId());
                 break;
             case "getnpctype":
                 getNPCType(sender, npc);
+                sender.sendMessage(npc.getFullName() + " : " + npc.getId());
                 break;
             default:
                 sender.sendMessage("알 수 없는 명령어입니다. 도움말은 '/dominpc help'를 입력하세요.");
